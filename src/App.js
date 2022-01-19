@@ -1,24 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import Box from './components/Box';
+import New from './components/New';
 
 function App() {
+
+    const [boxes, setBoxes] = useState(
+      [
+        {color: "red"},
+        {color: "green"},
+        {color: "blue"},
+      ]
+      )
+
+    const createBox = (newBoxObj) => {
+      
+      // Either #1 or #2 will work:
+      // 1. 
+      // const copyBoxes = [...boxes];
+      // copyBoxes.push(newBoxObj);
+      // setBoxes(copyBoxes)
+      // OR
+      // 2.
+      setBoxes([...boxes, newBoxObj])
+    }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>boxes</h1>
+      {JSON.stringify(boxes)}
+      <hr />
+      <New createBox={createBox}/>
+      {
+        boxes.map( (box, idx) => {
+          return <Box box={box} key={idx}/>
+        })
+      }
     </div>
+    
   );
 }
 
